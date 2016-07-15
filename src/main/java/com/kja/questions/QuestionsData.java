@@ -13,6 +13,7 @@ public class QuestionsData {
 	public Integer total;
 	public Integer mark;
 	public String title;
+	public String fio;
 	
 	public static class Question {
 		public Integer id;

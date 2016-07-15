@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -33,6 +37,7 @@ public class App {
 	private static final int DEF_HTTP_PORT = 80;
 
 	private static final String DATA_FILE = "data.json";
+	private static final String RESULTS_FILE = "results.log";
 	
 	private static ObjectMapper mapper = initMapper();
 	private static QuestionsData data;
@@ -85,11 +90,18 @@ public class App {
 				}
 			}
 			String adr = req.raw().getRemoteAddr();
-			System.out.println(adr + " начал тест");
+			System.out.println(adr + " - вiдкрив тест");
 			return dataToJson(qd);
 		});
+		get("/saveFio.json", (req, res) -> {
+			String fio = req.queryParams("fio");
+			String adr = req.raw().getRemoteAddr();
+			System.out.println(adr + " - " +fio + " почав тест");
+			return "";
+		});
 		post("/checkResults.json", (req, res) -> {
-			QuestionsData cd = mapper.readValue(req.body(), QuestionsData.class);
+			String body = new String(req.bodyAsBytes(), StandardCharsets.UTF_8);
+			QuestionsData cd = mapper.readValue(body, QuestionsData.class);
 			int right = 0;
 			for (Question q : cd.questions) {
 				Question qq = data.questions.get(q.id);				
@@ -103,12 +115,16 @@ public class App {
 			qd.right = right;
 			qd.mark = getMark(qd.right, qd.total, data.grades);
 			String adr = req.raw().getRemoteAddr();
-			System.out.println(adr + " закончил тест, оценка: " + qd.mark);
+			String msg = adr + " - " + cd.fio + " закiнчив тест, оцiнка: " + qd.mark;
+			List<String> msgl = new ArrayList<>(); msgl.add(msg);
+			Files.write(new File(RESULTS_FILE).toPath(), msgl, StandardCharsets.UTF_8, 
+					StandardOpenOption.APPEND, StandardOpenOption.CREATE);
+			System.out.println(msg);
 			return dataToJson(qd);
 		});
 		exception(Exception.class, (e, request, response) -> {
 			response.status(500);
-			response.body("Произошла ошибка: " + e.getMessage());
+			response.body("Трапилась помилка: " + e.getMessage());
 			e.printStackTrace();
 		});
 		return port;

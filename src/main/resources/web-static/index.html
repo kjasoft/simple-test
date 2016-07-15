@@ -17,7 +17,9 @@
 		.container {
 			padding: 28px;
 		}
-
+		.margin-bottom {
+			margin-bottom: 20px;
+		}
     </style>
 	
 	<script type="text/javascript" src="res/angular-1.3.js"></script>
@@ -33,9 +35,15 @@
 	<div class="panel-body">
 		<div   class="text-center">
 			<h4>{{data.title}}</h4>
+			<div class="margin-bottom">
+				<div class="row"><div class="col-lg-4 col-lg-offset-4">
+				<input type="text" id="fio"
+					ng-model="data.fio"
+					placeholder="Введiть Ваше ПIБ" class="col-md-5 form-control">
+				</div></div>
+			</div>
 			<button class="btn btn-primary" ng-click="start()" ng-disabled="data.total==0">
-			
-					Начать тест
+					Почати тест
 			</button>
 		</div>
 	</div>
@@ -44,7 +52,7 @@
 	<div ng-show="data.mode=='questions'" class="panel panel-default">
 	<div class="panel-body">
 		<form>
-		<h4>Вопрос {{data.curI+1}} из {{data.total}}</h4>
+		<h4>Питання {{data.curI+1}} з {{data.total}}</h4>
 		<div>
 			{{data.curQ.question}}
 			<hr>
@@ -56,7 +64,7 @@
 			<hr>
 			<button class="btn btn-primary" type="submit"
 				ng-disabled="data.curQ.a == null" ng-click="nextQ()">
-				Дальше
+				Далi
 			</button>
 		</div>
 		</form>
@@ -65,10 +73,10 @@
 	
 	<div ng-show="data.mode=='results'" class="panel panel-default">
 	<div class="panel-body">
-		<h4>Оценка: {{data.res.mark}}</h4>
+		<h4>Оцiнка: {{data.res.mark}}</h4>
 		<hr>
-		Правильно: {{data.res.right}} из {{data.res.total}}
-		<div>Ответы:
+		Правильно: {{data.res.right}} з {{data.res.total}}
+		<div>Вiдповiдi:
 		<div ng-repeat="a in data.res.questions">
 			{{a.id+1}} - {{a.a+1}}
 		</div>
