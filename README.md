@@ -1,4 +1,4 @@
-# simple-test
+# students-test
 Minimalistic web application for testing students
 
 ## How it works
