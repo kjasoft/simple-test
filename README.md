@@ -2,7 +2,7 @@
 Minimalistic web application for testing students
 
 ## How it works
-Applications starts a web server, then opens its page in the browser. On that page student enters his/her name, answers questions and receives a mark.
+Application starts a web server, then opens its page in the browser. On that page student enters his/her name, answers questions and receives a mark.
 
 List of questions is loaded from configuration file data.json
 
