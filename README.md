@@ -14,8 +14,8 @@ Application can be run with maven command:
 ![Questions example](doc/questions-screen.png?raw=true "Questions example")
 
 ## Technologies used
--Spark web framework
--Jackson for json serialization
--AngularJS 1.3
--Bootstram 3
+- Spark web framework
+- Jackson for json serialization
+- AngularJS 1.3
+- Bootstram 3
 
