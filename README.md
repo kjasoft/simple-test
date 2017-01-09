@@ -1,5 +1,5 @@
 # simple-test
-Minimalistic web application for counducting a test
+Minimalistic web application for testing students
 
 ## How it works
 Applications starts a web server, then opens its page in the browser. On that page student enters his/her name, answers questions and receives a mark.
