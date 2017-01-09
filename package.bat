@@ -1,2 +1,2 @@
-call mvn package
+call mvn clean package
 pause
