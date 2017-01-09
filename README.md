@@ -12,3 +12,10 @@ Application can be run with maven command:
 `mvn clean compile exec:java -Dexec.mainClass=com.kja.questions.App`
 
 ![Questions example](doc/questions-screen.png?raw=true "Questions example")
+
+## Technologies used
+-Spark web framework
+-Jackson for json serialization
+-AngularJS 1.3
+-Bootstram 3
+
