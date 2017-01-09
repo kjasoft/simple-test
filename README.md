@@ -17,5 +17,5 @@ Application can be run with maven command:
 - Spark web framework
 - Jackson for json serialization
 - AngularJS 1.3
-- Bootstram 3
+- Twitter Bootstrap 3
 
