@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<title>Questions</title>
+
+	<link rel="stylesheet" href="res/bootstrap.min.css">
+	
+    <style type="text/css">
+		body {
+		  background: #fafafa;
+		  position: relative;
+		}
+		.container {
+			padding: 28px;
+		}
+		.margin-bottom {
+			margin-bottom: 20px;
+		}
+    </style>
+	
+	<script type="text/javascript" src="res/angular-1.3.js"></script>
+	<script type="text/javascript" src="res/angular-resource.min.js"></script>
+	
+	<script type="text/javascript" src="script.js"></script>
+
+  </head>
+  <body>
+<div ng-app="MyMod" ng-controller="MyContr" ng-cloak class="container">
+	
+	<div ng-show="data.mode=='wellcome'" class="panel panel-default">
+	<div class="panel-body">
+		<div   class="text-center">
+			<h4>{{data.title}}</h4>
+			<div class="margin-bottom">
+				<div class="row"><div class="col-lg-4 col-lg-offset-4">
+				<input type="text" id="fio"
+					ng-model="data.fio"
+					placeholder="Введiть Ваше ПIБ" class="col-md-5 form-control">
+				</div></div>
+			</div>
+			<button class="btn btn-primary" ng-click="start()" ng-disabled="data.total==0">
+					Почати тест
+			</button>
+		</div>
+	</div>
+	</div>
+	
+	<div ng-show="data.mode=='questions'" class="panel panel-default">
+	<div class="panel-body">
+		<form>
+		<h4>Питання {{data.curI+1}} з {{data.total}}</h4>
+		<div>
+			{{data.curQ.question}}
+			<hr>
+			<div ng-repeat="a in data.curQ.answers" class="radio">
+				<label><input type="radio" ng-model="data.curQ.a" ng-value="a.id"> {{a.text}}</label>
+			</div>
+		</div>
+		<div class="text-center">
+			<hr>
+			<button class="btn btn-primary" type="submit"
+				ng-disabled="data.curQ.a == null" ng-click="nextQ()">
+				Далi
+			</button>
+		</div>
+		</form>
+	</div>
+	</div>
+	
+	<div ng-show="data.mode=='results'" class="panel panel-default">
+	<div class="panel-body">
+		<h4>Оцiнка: {{data.res.mark}}</h4>
+		<hr>
+		Правильно: {{data.res.right}} з {{data.res.total}}
+		<div>Вiдповiдi:
+		<div ng-repeat="a in data.res.questions">
+			{{a.id+1}} - {{a.a+1}}
+		</div>
+		</div>
+	</div>
+	</div>
+	
+</div>
+	
+	
+	
+  </body>
+</html>
+
